@@ -29,10 +29,10 @@ PT.start = function(name = 'default') {
 	addTimerIfMissing(name);
 	var lastStarted = timers[name].lastStarted;
 
+	// Save information
 	if (lastStarted) {
 		timers[name].totalTime += getTime() - lastStarted;
 	}
-
 	timers[name].starts++;
 	timers[name].lastStarted = getTime();
 };
@@ -42,9 +42,12 @@ PT.stop = function(name = 'default') {
 	addTimerIfMissing(name);
 	var lastStarted = timers[name].lastStarted;
 
+	// Save information
 	timers[name].stops++;
 	timers[name].totalTime += getTime() - lastStarted;
 	timers[name].lastStarted = false;
+
+	// Output
 	outputTimer(name);
 };
 
