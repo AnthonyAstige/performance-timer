@@ -1,5 +1,5 @@
 'use strict';
-/* global PT */
+/* global PT, EJSON */
 
 var timers = {};
 
@@ -21,7 +21,31 @@ function getTime() {
 }
 
 function outputTimer(name) {
-	console.log(timers[name]);
+	// Make a copy of object for modification
+	var log = EJSON.clone(timers[name]);
+
+	if (log.starts === log.stops) {
+		// Remove dupe info if not needed
+		log.runs = log.stops;
+		delete log.starts;
+		delete log.stops;
+
+		// Add average run time
+		log.averageTime = Math.round(log.totalTime / log.runs);
+	}
+
+	// Remove lastStarted, we don't need it
+	delete log.lastStarted;
+
+	// Truncate totalTime
+	log.totalTime = Math.round(log.totalTime);
+
+	// Add timer name if it's not default
+	if (name !== 'default') {
+		log.name = name;
+	}
+
+	console.log(log);
 }
 
 PT.start = function(name = 'default') {
