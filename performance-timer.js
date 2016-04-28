@@ -79,6 +79,21 @@ PT.stop = function(name = 'default') {
 	outputTimer(name);
 };
 
+var lastQuickName = false;
+PT.quick = function(name = 'default') {
+	if (lastQuickName) {
+		PT.stop(lastQuickName);
+	}
+	PT.start(name);
+	lastQuickName = name;
+};
+PT.quickStop = function() {
+	PT.stop(lastQuickName);
+	lastQuickName = false;
+};
+
 // Shorthand method aliases
 PT.a = PT.start;
 PT.z = PT.stop;
+PT.q = PT.quick;
+PT.qz = PT.quickStop;
