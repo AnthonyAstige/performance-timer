@@ -14,12 +14,13 @@ function addTimerIfMissing(name) {
 }
 
 function getTime() {
-	// TODO: Make work on node, references:
-	// TODO: * http://stackoverflow.com/a/18197438/4747661
-	// TODO: * Perhaps using https://github.com/Krb686/nanotimer
 	if (typeof window === 'undefined') {
-		return 0;
+		// Node: https://nodejs.org/api/process.html#process_process_hrtime
+		var [seconds, nanoseconds] = process.hrtime();
+		return (seconds * 1000) + (nanoseconds / 1000000);
 	}
+
+	// Browser
 	return window.performance.now();
 }
 
