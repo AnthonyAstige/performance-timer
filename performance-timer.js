@@ -1,5 +1,5 @@
 'use strict';
-/* global PT, EJSON */
+/* global PT, EJSON, _ */
 
 var timers = {};
 
@@ -17,6 +17,9 @@ function getTime() {
 	// TODO: Make work on node, references:
 	// TODO: * http://stackoverflow.com/a/18197438/4747661
 	// TODO: * Perhaps using https://github.com/Krb686/nanotimer
+	if (typeof window === 'undefined') {
+		return 0;
+	}
 	return window.performance.now();
 }
 
