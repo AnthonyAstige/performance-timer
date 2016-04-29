@@ -35,7 +35,7 @@ function outputTimer(name) {
 		delete log.stops;
 
 		// Add average run time
-		log.averageTime = Math.round(log.totalTime / log.runs);
+		log.averageTime = Math.round((log.totalTime / log.runs) * 100) / 100;
 	}
 
 	// Remove lastStarted, we don't need it
